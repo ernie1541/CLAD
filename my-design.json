@@ -1,0 +1,131 @@
+{
+  "project_id": "8dfee77c8fc74bcbbcc7778a0d1b1645",
+  "stage": "engineer",
+  "revision": 1,
+  "iterations": 2,
+  "max_iterations": 20,
+  "question_rounds": 1,
+  "max_question_rounds": 3,
+  "approved_revision": 1,
+  "design": {
+    "status": "concept_ready",
+    "specifications": {
+      "purpose": {
+        "message_id": "b055d750c38a4753aa1663ceb3d82442",
+        "quote": "for show",
+        "value": "for show"
+      },
+      "functionality": {
+        "message_id": "b055d750c38a4753aa1663ceb3d82442",
+        "quote": "does not need to do anything",
+        "value": "does not need to do anything"
+      },
+      "geometry": {
+        "message_id": "11e9cc055d5f4f6b845e54d46a2014d6",
+        "quote": "sphere",
+        "value": "sphere"
+      },
+      "additional": {}
+    },
+    "sketch_parameters": {
+      "radius": {
+        "message_id": "11e9cc055d5f4f6b845e54d46a2014d6",
+        "quote": "radius 20 mm",
+        "value": 20.0,
+        "unit": "mm"
+      }
+    },
+    "questions": [],
+    "concept": {
+      "title": "Sphere",
+      "view": "Isometric",
+      "dimension": "3d",
+      "shapes": [],
+      "solids": [
+        {
+          "requirement": "geometry",
+          "origin": [
+            "0",
+            "0",
+            "0"
+          ],
+          "kind": "sphere",
+          "diameter": "diameter"
+        }
+      ]
+    },
+    "unresolved_fields": [],
+    "preview_issue": null,
+    "generation_issue": null
+  },
+  "messages": [
+    {
+      "id": "11e9cc055d5f4f6b845e54d46a2014d6",
+      "text": "generate a sphere with radius 20 mm"
+    },
+    {
+      "id": "b055d750c38a4753aa1663ceb3d82442",
+      "text": "this part is for show, it does not need to do anything"
+    }
+  ],
+  "revisions": [
+    {
+      "number": 1,
+      "design": {
+        "status": "concept_ready",
+        "specifications": {
+          "purpose": {
+            "message_id": "b055d750c38a4753aa1663ceb3d82442",
+            "quote": "for show",
+            "value": "for show"
+          },
+          "functionality": {
+            "message_id": "b055d750c38a4753aa1663ceb3d82442",
+            "quote": "does not need to do anything",
+            "value": "does not need to do anything"
+          },
+          "geometry": {
+            "message_id": "11e9cc055d5f4f6b845e54d46a2014d6",
+            "quote": "sphere",
+            "value": "sphere"
+          },
+          "additional": {}
+        },
+        "sketch_parameters": {
+          "radius": {
+            "message_id": "11e9cc055d5f4f6b845e54d46a2014d6",
+            "quote": "radius 20 mm",
+            "value": 20.0,
+            "unit": "mm"
+          }
+        },
+        "questions": [],
+        "concept": {
+          "title": "Sphere",
+          "view": "Isometric",
+          "dimension": "3d",
+          "shapes": [],
+          "solids": [
+            {
+              "requirement": "geometry",
+              "origin": [
+                "0",
+                "0",
+                "0"
+              ],
+              "kind": "sphere",
+              "diameter": "diameter"
+            }
+          ]
+        },
+        "unresolved_fields": [],
+        "preview_issue": null,
+        "generation_issue": null
+      },
+      "decision": "approved",
+      "feedback": null
+    }
+  ],
+  "engineering": {},
+  "manufacturing": {}
+}
