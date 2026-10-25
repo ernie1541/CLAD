@@ -1,5 +1,5 @@
 // three.js viewer is loaded lazily so the rest of the app never depends on WebGL
-const PALETTE = ["#7389ad", "#d9a933", "#7e9e80", "#b3735f", "#9a9ca8", "#8c73a6", "#5f9ea0"];
+const PALETTE = ["#f15a24", "#df4b18", "#ff7a32", "#202124", "#8b8f94", "#da4614", "#f49a73"];
 const partColor = (i) => (i < 0 ? "transparent" : PALETTE[i % PALETTE.length]);
 
 // ------------------------------------------------------------ helpers
@@ -118,8 +118,11 @@ const refreshApprovalsSoon = debounce(refreshApprovals, 300);
 
 async function viewNew(el) {
   el.innerHTML = `
-  <div class="page-head"><div><h1>What do you need made?</h1>
-    <p>Describe the part. The lead engineer reviews it and asks you before anything is modeled.</p></div></div>
+  <div class="page-head page-head--hero"><div>
+    <span class="eyebrow hero-kicker">OPENCLAW × ONSHAPE</span>
+    <h1 class="describe-anything">Describe anything.</h1>
+    <p>You ask. The engineer and machinist turn the brief into stable, fabrication-ready CAD—with your approval at every gate.</p></div>
+    <span class="product-badge">DESIGN BRIEF</span></div>
   <form id="newJob" class="stack">
     <div class="sheet stack">
       <div><label for="prompt">Request</label>
