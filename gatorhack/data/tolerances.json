@@ -1,0 +1,45 @@
+{
+  "_note": "General tolerances per ISO 2768-1 (linear dimensions, ± mm) and common ISO 286 fits. Process capability values are typical shop numbers, not guarantees.",
+  "iso2768_linear": {
+    "classes": {"f": "fine", "m": "medium", "c": "coarse", "v": "very coarse"},
+    "ranges": [
+      {"over": 0.5,  "up_to": 3,    "f": 0.05, "m": 0.1, "c": 0.2, "v": null},
+      {"over": 3,    "up_to": 6,    "f": 0.05, "m": 0.1, "c": 0.3, "v": 0.5},
+      {"over": 6,    "up_to": 30,   "f": 0.1,  "m": 0.2, "c": 0.5, "v": 1.0},
+      {"over": 30,   "up_to": 120,  "f": 0.15, "m": 0.3, "c": 0.8, "v": 1.5},
+      {"over": 120,  "up_to": 400,  "f": 0.2,  "m": 0.5, "c": 1.2, "v": 2.5},
+      {"over": 400,  "up_to": 1000, "f": 0.3,  "m": 0.8, "c": 2.0, "v": 4.0},
+      {"over": 1000, "up_to": 2000, "f": 0.5,  "m": 1.2, "c": 3.0, "v": 6.0},
+      {"over": 2000, "up_to": 4000, "f": null, "m": 2.0, "c": 4.0, "v": 8.0}
+    ]
+  },
+  "fits": [
+    {"fit": "H11/c11", "type": "clearance", "use": "Loose running fit for wide commercial tolerances, pins in exposed linkages"},
+    {"fit": "H9/d9",   "type": "clearance", "use": "Free running, large temperature swings or high speeds"},
+    {"fit": "H8/f7",   "type": "clearance", "use": "Close running, accurate location on shafts at moderate speed"},
+    {"fit": "H7/g6",   "type": "clearance", "use": "Sliding fit, parts move and turn freely and locate accurately"},
+    {"fit": "H7/h6",   "type": "transition-clearance", "use": "Locational clearance, snug fit for stationary parts that can be assembled by hand"},
+    {"fit": "H7/k6",   "type": "transition", "use": "Locational transition, accurate location with slight interference possible"},
+    {"fit": "H7/p6",   "type": "interference", "use": "Locational interference / light press fit, rigid alignment"},
+    {"fit": "H7/s6",   "type": "interference", "use": "Medium drive fit, permanent assembly of steel parts"}
+  ],
+  "process_capability_mm": {
+    "fdm": 0.3,
+    "sla": 0.1,
+    "sls": 0.2,
+    "cnc_mill": 0.05,
+    "laser_cut": 0.1,
+    "injection_molding": 0.1
+  },
+  "design_rules": [
+    {"process": "fdm", "rule": "Holes print undersize by ~0.1–0.2 mm; ream or add clearance for fits"},
+    {"process": "fdm", "rule": "Overhangs beyond 45° need supports; orient the largest flat face on the bed"},
+    {"process": "fdm", "rule": "Minimum wall ≈ 1.2 mm (3 perimeters at 0.4 mm nozzle)"},
+    {"process": "sla", "rule": "Hollow parts need drain holes ≥ 3 mm; minimum wall ≈ 0.6 mm"},
+    {"process": "sls", "rule": "No supports needed; minimum wall ≈ 0.8 mm, escape holes for hollow parts"},
+    {"process": "cnc_mill", "rule": "Internal corners need a radius ≥ tool radius (≥ 1.5 mm typical); avoid deep narrow pockets (depth > 4× width)"},
+    {"process": "cnc_mill", "rule": "Thin walls below 0.8 mm (metal) / 1.5 mm (plastic) chatter and deflect"},
+    {"process": "laser_cut", "rule": "2D profiles only; kerf ≈ 0.1–0.3 mm; minimum feature ≈ material thickness"},
+    {"process": "injection_molding", "rule": "Uniform wall 1–4 mm, draft ≥ 1°, avoid undercuts unless side actions are budgeted"}
+  ]
+}

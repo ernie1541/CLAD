@@ -1,0 +1,50 @@
+// Merge into ~/.openclaw/openclaw.json, then restart the gateway.
+// Verify the result with `openclaw doctor` — key names follow the OpenClaw docs at the time of writing
+// (gateway/openai-http-api, providers/ollama, tools/subagents); adjust if your version differs.
+{
+  gateway: {
+    // Traveler calls the agents through the OpenAI-compatible endpoint (off by default).
+    http: { endpoints: { chatCompletions: { enabled: true } } },
+    // Keep the gateway on loopback. Put the same token in Traveler's .env as OPENCLAW_GATEWAY_TOKEN.
+    auth: { mode: "token", token: "CHANGE-ME-long-random-string" },
+  },
+
+  models: {
+    providers: {
+      ollama: {
+        baseUrl: "http://127.0.0.1:11434",
+        api: "ollama",
+        apiKey: "ollama-local",
+        models: [
+          { id: "gemma4:26b", contextWindow: 32768 },   // lead engineer + machinist (MoE, ~3.8B active)
+          { id: "gemma4:e4b", contextWindow: 32768 },   // summoned sub-engineers
+        ],
+      },
+    },
+  },
+
+  agents: {
+    defaults: {
+      // Sub-agents spawned with sessions_spawn use the small model and run in parallel.
+      subagents: { model: "ollama/gemma4:e4b", maxConcurrent: 4 },
+    },
+    list: [
+      {
+        id: "cad-lead-engineer",
+        workspace: "~/.openclaw/workspace-cad-lead-engineer",
+        model: { primary: "ollama/gemma4:26b" },
+        subagents: { allowAgents: ["cad-sub-engineer"] },
+      },
+      {
+        id: "cad-sub-engineer",
+        workspace: "~/.openclaw/workspace-cad-sub-engineer",
+        model: { primary: "ollama/gemma4:e4b" },
+      },
+      {
+        id: "cad-machinist",
+        workspace: "~/.openclaw/workspace-cad-machinist",
+        model: { primary: "ollama/gemma4:26b" },
+      },
+    ],
+  },
+}

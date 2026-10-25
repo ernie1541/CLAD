@@ -1,0 +1,66 @@
+{
+  "id": "261025-23a02f",
+  "title": "a cube",
+  "created": 1792946534.347,
+  "prompt": "a cube",
+  "requirements": {
+    "dimensions": "",
+    "dimensions_mm": [],
+    "tolerance": "ISO 2768-m",
+    "tolerance_mm": 0.3,
+    "application": "",
+    "budget": null,
+    "quantity": 1,
+    "work_conditions": {
+      "max_temp_c": null,
+      "load": "light",
+      "environment": [],
+      "notes": ""
+    },
+    "processes_available": [],
+    "reference": null
+  },
+  "stage": "aborted",
+  "status": "done",
+  "iteration": 1,
+  "revision": null,
+  "revisions": [],
+  "gates": [
+    {
+      "id": "g1",
+      "kind": "error",
+      "stage": "review",
+      "op": 20,
+      "agent": "system",
+      "title": "Op 20 stopped on an error",
+      "body": "`LLMError: ollama call failed for engineer/review: LLMError: Ollama HTTP 404: {\"error\":\"model 'gemma4:26b' not found\"}`\n\nCheck the model backend on the Dev page, then retry this operation.",
+      "data": {
+        "stage": "review",
+        "trace": "Traceback (most recent call last):\n  File \"/Users/yvs2007/Desktop/gatorhack/app/llm.py\", line 100, in chat\n    text = await _ollama(cfg, model, messages, json_mode)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/yvs2007/Desktop/gatorhack/app/llm.py\", line 151, in _ollama\n    raise LLMError(f\"Ollama HTTP {r.status_code}: {r.text[:300]}\")\napp.llm.LLMError: Ollama HTTP 404: {\"error\":\"model 'gemma4:26b' not found\"}\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/Users/yvs2007/Desktop/gatorhack/app/workflow.py\", line 162, in _run\n    await handler(p)\n  File \"/Users/yvs2007/Desktop/gatorhack/app/workflow.py\", line 320, in do_review\n    review = await engineer.review(p)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/yvs2007/Desktop/gatorhack/app/agents/engineer.py\", line 20, in review\n    out = await llm.chat_json(\"engineer\", \"review\", msgs, project_id=p[\"id\"], session=\"lead\", ctx={\"project\": p})\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/yvs2007/Desktop/gatorhack/app/llm.py\", line 203, in chat_json\n    text = await chat(role, task, msgs, json_mode=True, **kw)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/yvs2007/Desktop/gatorhack/app/llm.py\", line 105, in chat\n    raise LLMError(f\"{backend} call failed for {role}/{task}: {error}\") from e\napp.llm.LLMError: ollama call failed for engineer/review: LLMError: Ollama HTTP 404: {\"error\":\"model 'gemma4:26b' not found\"}\n"
+      },
+      "status": "answered",
+      "created": 1792946534.379,
+      "can_revise": true,
+      "iteration": 1,
+      "max_iterations": 3,
+      "response": {
+        "action": "abort"
+      },
+      "answered_at": 1792946545.69
+    }
+  ],
+  "answers": [],
+  "accepted_fixes": [],
+  "rejected_fixes": [],
+  "fix_comments": "",
+  "feedback": [],
+  "review": null,
+  "plan": null,
+  "build": null,
+  "memo": null,
+  "manufacturing": null,
+  "release": null,
+  "clarify_rounds": {},
+  "error": "LLMError: ollama call failed for engineer/review: LLMError: Ollama HTTP 404: {\"error\":\"model 'gemma4:26b' not found\"}",
+  "updated": 1792946545.691
+}

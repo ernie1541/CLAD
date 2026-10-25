@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Traveler</title>
+  <meta name="description" content="Prompt-to-fabrication CAD workflow: Gemma engineer, sub-engineers and machinist with user sign-off at every gate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="importmap">
+    {"imports": {
+      "three": "./vendor/three/three.module.js",
+      "three/addons/": "./vendor/three/addons/"
+    }}
+  </script>
+  <script src="vendor/marked.min.js"></script>
+  <script src="vendor/purify.min.js"></script>
+</head>
+<body>
+  <div class="shell">
+    <nav class="rail" aria-label="Main">
+      <a class="wordmark" href="#/new">Traveler</a>
+      <ul class="nav">
+        <li><a href="#/new" data-nav="new">New job</a></li>
+        <li><a href="#/jobs" data-nav="jobs">Jobs</a></li>
+        <li><a href="#/approvals" data-nav="approvals">Approvals <span class="count" id="approvalCount" hidden></span></a></li>
+        <li class="nav-gap"><a href="#/materials" data-nav="materials">Materials</a></li>
+        <li><a href="#/processes" data-nav="processes">Processes</a></li>
+        <li><a href="#/agents" data-nav="agents">Agents</a></li>
+        <li><a href="#/dev" data-nav="dev">Dev</a></li>
+      </ul>
+      <a class="backend" id="backendChip" href="#/dev" title="Model backend">Checking models…</a>
+    </nav>
+    <main id="view" tabindex="-1"></main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
