@@ -1,0 +1,14 @@
+{
+  "title": "Wall shelf bracket",
+  "function": "Cantilevered bracket that screws to a wall stud and supports one end of a shelf via a pin",
+  "loads": [
+    {"description": "Shelf load at arm tip (20 kg x 9.81, x1 dynamic)", "magnitude": 200, "unit": "N",
+     "location": "arm tip, 100 mm from wall", "kind": "static"}
+  ],
+  "environment": "indoor, room temperature",
+  "size_limits": "fits within 130 x 70 x 110 mm",
+  "quantity": 4,
+  "budget": "under $25 per bracket at qty 4",
+  "preferred_materials": ["aluminum"],
+  "requirements": ["Hold 20 kg shelf load", "Mount with two M6 screws"]
+}

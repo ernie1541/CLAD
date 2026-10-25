@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "engineer-tools"
+version = "0.1.0"
+description = "Deterministic core (MCP server) for a Lead/Worker Engineer agent pair: OpenClaw + Gemma + Onshape MCP"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["mcp>=1.2", "pydantic>=2.6"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+engineer-tools = "engineer_tools.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/engineer_tools"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,15 @@
+{
+  "_meta": {
+    "note": "Starter set of typical room-temperature values. VERIFY against your own source (MatWeb, ASM, supplier datasheet) before relying on them. Replace or extend with --materials-db.",
+    "units": {"density": "g/cm^3", "E": "GPa", "yield": "MPa", "uts": "MPa", "max_service_temp": "C"}
+  },
+  "al_6061_t6": {"name": "Aluminum 6061-T6", "density": 2.70, "E": 68.9, "yield": 276, "uts": 310, "elongation_pct": 12, "max_service_temp": 150, "machinability": "good", "corrosion": "good", "source": "MatWeb / ASM typical values"},
+  "al_7075_t6": {"name": "Aluminum 7075-T6", "density": 2.81, "E": 71.7, "yield": 503, "uts": 572, "elongation_pct": 11, "max_service_temp": 120, "machinability": "fair-good", "corrosion": "fair", "source": "MatWeb / ASM typical values"},
+  "steel_1018_cd": {"name": "Steel AISI 1018, cold drawn", "density": 7.87, "E": 205, "yield": 370, "uts": 440, "elongation_pct": 15, "max_service_temp": 400, "machinability": "good", "corrosion": "poor (needs coating)", "source": "MatWeb / ASM typical values"},
+  "steel_4140_qt": {"name": "Steel AISI 4140, quenched & tempered (~30 HRC)", "density": 7.85, "E": 205, "yield": 655, "uts": 1020, "elongation_pct": 17, "max_service_temp": 425, "machinability": "fair", "corrosion": "poor (needs coating)", "source": "MatWeb / ASM typical values; varies strongly with temper"},
+  "ss_304_annealed": {"name": "Stainless steel 304, annealed", "density": 8.00, "E": 193, "yield": 215, "uts": 505, "elongation_pct": 70, "max_service_temp": 800, "machinability": "fair (work hardens)", "corrosion": "excellent", "source": "MatWeb / ASM typical values"},
+  "ti_6al4v_annealed": {"name": "Titanium Ti-6Al-4V, annealed", "density": 4.43, "E": 113.8, "yield": 880, "uts": 950, "elongation_pct": 14, "max_service_temp": 400, "machinability": "poor", "corrosion": "excellent", "source": "MatWeb / ASM typical values"},
+  "pom_delrin": {"name": "Acetal homopolymer (POM, Delrin)", "density": 1.42, "E": 3.1, "yield": 69, "uts": 69, "elongation_pct": 25, "max_service_temp": 90, "machinability": "excellent", "corrosion": "excellent", "source": "Supplier datasheet typical values"},
+  "abs": {"name": "ABS (molded)", "density": 1.05, "E": 2.3, "yield": 40, "uts": 44, "elongation_pct": 20, "max_service_temp": 80, "machinability": "good", "corrosion": "excellent", "source": "Supplier datasheet typical values; 3D-printed parts are weaker and anisotropic"},
+  "steel_class_8_8_bolt": {"name": "Metric bolt, property class 8.8", "density": 7.85, "E": 205, "yield": 640, "uts": 800, "elongation_pct": 12, "max_service_temp": 300, "machinability": "n/a", "corrosion": "poor (zinc plated typical)", "source": "ISO 898-1 minimum values"}
+}

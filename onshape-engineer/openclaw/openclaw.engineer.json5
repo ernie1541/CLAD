@@ -1,0 +1,102 @@
+// Merge into ~/.openclaw/openclaw.json (or apply piecewise with `openclaw config set`).
+// Two agents on local Gemma via Ollama, plus two MCP servers:
+//   engineer -> the engineer-tools state machine (this package)
+//   onshape  -> hedless/onshape-mcp (https://github.com/hedless/onshape-mcp)
+{
+  models: {
+    providers: {
+      ollama: {
+        baseUrl: "http://127.0.0.1:11434", // native Ollama URL. Do NOT add /v1 (it breaks tool calling).
+        apiKey: "ollama-local",
+        api: "ollama",
+        timeoutSeconds: 600,
+        models: [
+          // Lead: dense model for review, planning and integration.
+          { id: "gemma4:31b", name: "gemma4:31b", input: ["text", "image"], contextTokens: 65536,
+            params: { num_ctx: 65536, keep_alive: "30m" } },
+          // Workers: faster MoE model for the repetitive Onshape tool calls.
+          { id: "gemma4:26b", name: "gemma4:26b", input: ["text", "image"], contextTokens: 65536,
+            params: { num_ctx: 65536, keep_alive: "30m" } },
+        ],
+      },
+    },
+  },
+
+  mcp: {
+    servers: {
+      engineer: {
+        command: "engineer-tools",
+        args: [
+          "--runs-dir", "~/.openclaw/engineer-runs",
+          "--max-iterations", "3",
+          "--spawn-parts-over", "6",          // N
+          "--spawn-subassemblies-over", "2",  // M
+          "--max-workers", "4",               // K
+          "--min-safety-factor", "2.0",
+          "--min-wall-mm", "1.0",
+        ],
+      },
+      onshape: {
+        command: "onshape-mcp",
+        // Keys from the Onshape Developer Portal. Keep the values out of this file:
+        // set them in the gateway's environment or via OpenClaw secrets.
+        env: { ONSHAPE_ACCESS_KEY: "${ONSHAPE_ACCESS_KEY}", ONSHAPE_SECRET_KEY: "${ONSHAPE_SECRET_KEY}" },
+        requestTimeoutMs: 120000,
+      },
+    },
+  },
+
+  agents: {
+    defaults: {
+      subagents: {
+        maxSpawnDepth: 1,       // workers are leaves: they can't spawn
+        maxConcurrent: 4,       // keep equal to --max-workers (K)
+        runTimeoutSeconds: 1800,
+        archiveAfterMinutes: 240,
+      },
+    },
+    entries: {
+      "engineer-lead": {
+        name: "Lead Engineer",
+        workspace: "~/.openclaw/workspace-engineer-lead",
+        model: "ollama/gemma4:31b",
+        subagents: { allowAgents: ["engineer-worker"], requireAgentId: true, maxChildrenPerAgent: 4 },
+        tools: {
+          profile: "coding", // includes sessions_spawn, sessions_yield, ask_user and MCP tools
+          deny: [
+            // worker-only engineer tools
+            "engineer__get_work_order", "engineer__report_part", "engineer__submit_work_result",
+            // the lead never models parts
+            "onshape__create_part_studio", "onshape__create_sketch_*", "onshape__create_extrude",
+            "onshape__create_thicken", "onshape__create_revolve", "onshape__create_fillet",
+            "onshape__create_chamfer", "onshape__create_linear_pattern", "onshape__create_circular_pattern",
+            "onshape__create_boolean", "onshape__delete_feature",
+          ],
+        },
+      },
+      "engineer-worker": {
+        name: "Worker Engineer",
+        workspace: "~/.openclaw/workspace-engineer-worker",
+        model: "ollama/gemma4:26b",
+        tools: {
+          profile: "coding",
+          deny: [
+            // lead-only engineer tools (gates, plan, dispatch, handoff)
+            "engineer__start_run", "engineer__list_runs", "engineer__submit_review",
+            "engineer__record_review_decision", "engineer__submit_plan", "engineer__set_onshape_target",
+            "engineer__next_orders", "engineer__build_status", "engineer__issue_rework",
+            "engineer__verify_variables", "engineer__submit_integration", "engineer__submit_memo",
+            "engineer__record_gate", "engineer__finalize_handoff", "engineer__submit_feedback",
+            "engineer__submit_tradeoffs", "engineer__restart_from_designer",
+            // documents and assemblies belong to the lead
+            "onshape__create_document", "onshape__create_variable_studio", "onshape__create_assembly",
+            "onshape__add_assembly_instance", "onshape__transform_instance", "onshape__set_instance_position",
+            "onshape__align_instance_to_face", "onshape__create_mate_connector", "onshape__create_fastened_mate",
+            "onshape__create_revolute_mate", "onshape__create_slider_mate", "onshape__create_cylindrical_mate",
+            "onshape__export_assembly", "onshape__list_documents", "onshape__search_documents",
+          ],
+        },
+      },
+    },
+  },
+}

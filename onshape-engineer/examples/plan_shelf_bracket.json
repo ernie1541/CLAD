@@ -1,0 +1,35 @@
+{
+  "default_tolerance": "±0.1 mm",
+  "parameters": [
+    {"name": "plate_length", "value": 120, "unit": "mm", "description": "wall plate height (Z)"},
+    {"name": "plate_width", "value": 60, "unit": "mm", "description": "wall plate width (X)"},
+    {"name": "plate_thickness", "value": 6, "unit": "mm", "description": "wall plate thickness (Y)"},
+    {"name": "arm_length", "value": 100, "unit": "mm", "description": "arm projection from wall (Y)"},
+    {"name": "arm_height", "value": 30, "unit": "mm"},
+    {"name": "arm_thickness", "value": 8, "unit": "mm"},
+    {"name": "hole_dia", "value": 6.4, "unit": "mm", "description": "M6 clearance (user modified, issue #2)"},
+    {"name": "hole_spacing", "value": 80, "unit": "mm"},
+    {"name": "pin_dia", "value": 8, "unit": "mm"},
+    {"name": "root_fillet", "value": 3, "unit": "mm", "description": "issue #1"}
+  ],
+  "datums": [
+    {"name": "origin", "definition": "Centre of the wall plate's back face (touching the wall). +Y out of the wall, +Z up, +X right."}
+  ],
+  "subassemblies": [
+    {"name": "wall_mount", "description": "Plate that screws to the wall",
+     "parts": [{"name": "wall_plate", "description": "120x60x6 plate, 2 holes", "material": "al_6061_t6"}]},
+    {"name": "cantilever", "description": "Arm welded/bolted to the plate", "depends_on": ["wall_mount"],
+     "parts": [{"name": "arm", "description": "100x30x8 arm with pin bore at tip", "material": "al_6061_t6"}]},
+    {"name": "hardware", "description": "Shelf pin",
+     "parts": [{"name": "shelf_pin", "description": "8 mm dowel pin, 40 long", "material": "ss_304_annealed"}]}
+  ],
+  "interfaces": [
+    {"id": "IF-1", "part_a": "wall_plate", "part_b": "arm", "mating_features": "arm root face on plate front face, centred",
+     "parameters": ["plate_thickness", "arm_thickness", "arm_height", "root_fillet"]},
+    {"id": "IF-2", "part_a": "arm", "part_b": "shelf_pin", "mating_features": "pin through bore at arm tip",
+     "parameters": ["pin_dia"], "fit": "H7/m6"},
+    {"id": "IF-3", "part_a": "wall_plate", "part_b": "wall_plate", "mating_features": "wall screw pattern",
+     "parameters": ["hole_dia", "hole_spacing"], "fasteners": "2x M6 wood/lag screw"}
+  ],
+  "modeling_order": ["wall_plate", "arm", "shelf_pin"]
+}
